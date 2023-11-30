@@ -6,7 +6,7 @@ use App\Repository\LivreRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert; // Ajouté pour les contraintes de validation
 #[ORM\Entity(repositoryClass: LivreRepository::class)]
 class Livre
 {
@@ -16,12 +16,15 @@ class Livre
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank (message: 'Le titre ne peut pas être vide')]
     private ?string $titre = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank (message: 'Le nom de l\'auteur ne peut pas être vide')]
     private ?string $auteur = null;
 
     #[ORM\Column]
+    #[Assert\Positive (message: 'Le nombre de page doit être positif')]
     private ?int $nombrePage = null;
 
     #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'livres')]
