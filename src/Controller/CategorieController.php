@@ -34,7 +34,6 @@ class CategorieController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $categorie = new Categorie();
-        $categorie->setNom('Write a blog post');
 
         $form = $this->createForm(CategorieType::class, $categorie);
         $form->handleRequest($request);

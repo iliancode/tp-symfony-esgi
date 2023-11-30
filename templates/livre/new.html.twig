@@ -1,1 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer livre{% endblock %}
+
+{% block body %}
+        <h1>
+            Création d'un nouveau livre
+        </h1>
+
 {{ form(form) }}
+        <a href="{{ path('app_livre_index') }}" class="btn btn-secondary">Retour</a>
+
+
+
+{% endblock %}

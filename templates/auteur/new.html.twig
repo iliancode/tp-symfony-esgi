@@ -1,1 +1,16 @@
-{{ form(form) }}
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer auteur{% endblock %}
+
+{% block body %}
+        <h1>
+            Création d'un nouvel auteur
+        </h1>
+
+        {{ form(form) }}
+
+        <a href="{{ path('app_auteur_index') }}" class="btn btn-secondary">Retour</a>
+
+
+
+{% endblock %}
