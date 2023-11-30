@@ -3,9 +3,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Auteur;
 use App\Entity\Categorie;
 use App\Entity\Personne;
 use App\Form\PersonneType;
+use App\Form\Type\AuteurType;
 use App\Form\Type\CategorieType;
 use App\Repository\AuteurRepository;
 use App\Repository\CategorieRepository;
@@ -29,72 +31,71 @@ class AuteurController extends AbstractController
         ]);
     }
 
-/*
+
     #[Route('/new', name: 'app_auteur_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $categorie = new Categorie();
-        $categorie->setNom('Write a blog post');
+        $auteur = new Auteur();
 
-        $form = $this->createForm(CategorieType::class, $categorie);
+        $form = $this->createForm(AuteurType::class, $auteur);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($categorie);
+            $entityManager->persist($auteur);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_categorie_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_auteur_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('categorie/new.html.twig', [
-            'categorie' => $categorie,
+        return $this->render('auteur/new.html.twig', [
+            'auteur' => $auteur,
 
             'form' => $form,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_categorie_show', methods: ['GET'])]
-    public function show(?Categorie $categorie): Response
+    #[Route('/{id}', name: 'app_auteur_show', methods: ['GET'])]
+    public function show(?Auteur $auteur): Response
     {
-        if (!$categorie) {
+        if (!$auteur) {
             throw $this->createNotFoundException(
-                'No categorie found for id ' . $categorie
+                'No auteur found for id ' . $auteur
             );
         }
-        return $this->render('categorie/show.html.twig', [
-            'categorie' => $categorie,
+        return $this->render('auteur/show.html.twig', [
+            'auteur' => $auteur,
         ]);
     }
 
 
-    #[Route('/{id}/edit', name: 'app_categorie_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Categorie $categorie, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(CategorieType::class, $categorie);
-        $form->handleRequest($request);
+        #[Route('/{id}/edit', name: 'app_auteur_edit', methods: ['GET', 'POST'])]
+        public function edit(Request $request, Auteur $auteur, EntityManagerInterface $entityManager): Response
+        {
+            $form = $this->createForm(AuteurType::class, $auteur);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager->flush();
 
-            return $this->redirectToRoute('app_categorie_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_auteur_index', [], Response::HTTP_SEE_OTHER);
+            }
+
+            return $this->render('auteur/edit.html.twig', [
+                'categorie' => $auteur,
+                'form' => $form,
+            ]);
         }
 
-        return $this->render('categorie/edit.html.twig', [
-            'categorie' => $categorie,
-            'form' => $form,
-        ]);
-    }
+        #[Route('/{id}', name: 'app_auteur_delete', methods: ['POST'])]
+        public function delete(Request $request, Auteur $auteur , EntityManagerInterface $entityManager): Response
+        {
+            if ($this->isCsrfTokenValid('delete' . $auteur->getId(), $request->request->get('_token'))) {
+                $entityManager->remove($auteur);
+                $entityManager->flush();
+            }
 
-    #[Route('/{id}', name: 'app_categorie_delete', methods: ['POST'])]
-    public function delete(Request $request, Categorie $categorie, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete' . $categorie->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($categorie);
-            $entityManager->flush();
+            return $this->redirectToRoute('app_auteur_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->redirectToRoute('app_categorie_index', [], Response::HTTP_SEE_OTHER);
-    }
-*/
 
 }
